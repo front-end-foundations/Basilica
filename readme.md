@@ -430,7 +430,7 @@ Since background images fill the background of their container we can begin by m
 header h1 {
   padding-left: 260px;
   padding-top: 90px;
-  ...;
+  /* omitted */
 }
 ```
 
@@ -441,7 +441,7 @@ Use transform to tweak the positioning:
 ```css
 header h1 {
   transform: translate(-100px, -80px);
-  ...;
+  /* omitted */
 }
 ```
 
@@ -483,7 +483,7 @@ Note:
 ```css
 header {
   position: relative;
-  ...;
+  /* omitted */
 }
 ```
 
@@ -493,7 +493,7 @@ Add a hover, transform and animate:
 header a.beta {
   transform: rotate(20deg);
   transition: all 1s ease;
-  ...;
+  /* omitted */
 }
 ```
 
@@ -524,20 +524,20 @@ header h1 {
 And add features for the large screen within the media query:
 
 ```css
-@media (min-width: 640px) {
-  header h1 {
+h1 {
+  /* omitted for brevity */
+  @media (width > 640px) {
     padding-left: 240px;
     padding-top: 90px;
     transform: translate(-100px, -80px);
     background-position: top left;
   }
-  /* ...; */
 }
 ```
 
 Additional tweaks for the small screen:
 
-- Remove the body margin top (and adding it back for the wide screen):
+- Add the body margin top to the wide screen:
 
 ```css
 body {
@@ -546,44 +546,32 @@ body {
   line-height: 1.5;
   color: var(--dark-gray);
   max-width: var(--max-width);
-  /* margin: 0 auto;
-  margin-top: 24px; */
-}
-```
-
-```css
-@media (min-width: 640px) {
-  body {
+  /* here */
+  @media (width > 640px) {
     margin: 0 auto;
     margin-top: 24px;
   }
-  /* ...; */
 }
 ```
 
-- Removing the rounded corners on small screen:
+- Remove the rounded corners on small screen and add it to wide screens:
 
 ```css
 header {
-  position: relative;
   height: 120px;
   background: var(--basil-green);
+  position: relative;
   /* border-radius: 8px 8px 0px 0px; */
-}
-```
-
-Add it back on wide screens:
-
-```css
-@media (min-width: 640px) {
-  header {
+  @media (width > 640px) {
     border-radius: 8px 8px 0px 0px;
   }
-  /* ...; */
+  /* omitted */
 }
 ```
 
-Always remember: there is no hover in touch screen devices. Use the Device Toggle in the developer tools set to a mobile viewport and tap on the burst.
+Remember: there is no hover in touch screen devices.
+
+Use the Device Toggle in the developer tools set to a mobile viewport and tap on the burst.
 
 ## Navigation
 
@@ -616,16 +604,16 @@ nav p {
 Note:
 
 - the light gray needs to be lighter: `--light-gray: #e4e1d1;`
-- we have two flex children, the `<ul>` and the lone `<p>` tag.
-- the margin-right property on the paragraph and the effect it has on the positioning on the navigation links.
+- we have two flex children, the `<ul>` and the lone `<p>` tag
+- the `margin-right: auto` property on `nav p` and the effect it has on the positioning on the navigation links
 
-Remove it and add `justify-content` to the flex parent:
+Remove the `nav p` rule and add `justify-content` to the flex parent:
 
 ```css
 nav {
+  /* omitted */
   justify-content: space-between;
   flex-wrap: wrap;
-  /* ...; */
 }
 /* nav p {
   margin-right: auto; 
@@ -689,7 +677,7 @@ Make all the buttons the same width. Try with and without the `inline-block`.
 nav a {
   min-width: 120px;
   display: inline-block;
-  /* ...; */
+  /* omitted */
 }
 ```
 
@@ -697,7 +685,7 @@ Note: this is a setting which will likely need to be changed to accomodate small
 
 ## CSS Grid
 
-CSS Tricks offers a [guide to CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/).
+CSS Tricks offers a [reference guide to CSS grid](https://css-tricks.com/snippets/css/complete-guide-grid/).
 
 Flexbox operates in a [single dimension](https://hackernoon.com/the-ultimate-css-battle-grid-vs-flexbox-d40da0449faf): x or y. CSS Grid operates on both the x _and_ y axis.
 
@@ -725,7 +713,7 @@ Remove the flex statements and use a grid display, define columns, and set the s
     background: var(--light-green);
     box-shadow: -4px 0px 4px #ddd;
   }
-  /* ...; */
+  /* omitted */
 }
 ```
 
@@ -1037,7 +1025,7 @@ _Cut_ the body rule from the responsive section of the CSS:
 @media (min-width: 640px) {
   body {
   }
-  ...;
+  /* omitted */
 }
 ```
 
@@ -1095,7 +1083,7 @@ header {
       background-position: top left;
     }
   }
-  ...;
+  /* omitted */
 }
 ```
 
@@ -1119,7 +1107,7 @@ nav {
     grid-area: nav;
   }
 
-  ...;
+  /* omitted */
 }
 ```
 
