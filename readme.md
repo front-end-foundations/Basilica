@@ -1004,6 +1004,10 @@ console.log(makeBasil());
 
 ### Add a Script
 
+```html
+<script src="js/index.js"></script>
+```
+
 We'll do something similar to the node demo above in our app - replacing the recipe title with a random one.
 
 In `index.js`:
@@ -1033,8 +1037,8 @@ function random(array) {
   return array[randomIndex];
 }
 
-var name = random(basilChefs);
-console.log(name);
+const recipeName = random(basilChefs);
+console.log(recipeName);
 ```
 
 We used the random number to select a name from the array and return it to the calling function.
@@ -1051,7 +1055,7 @@ function random(array) {
   return array[randomIndex];
 }
 
-var recipeName =
+const recipeName =
   "My " + random(basilChefs) + "'s " + random(basilTexture) + " pesto";
 console.log(recipeName);
 ```
@@ -1059,13 +1063,13 @@ console.log(recipeName);
 Let's use the return value in our layout:
 
 ```js
-const el = document.querySelector("h2");
+const titleElement = document.querySelector("h2");
 ```
 
-Test `el` in the console.
+Test `titleElement` in the console.
 
 ```js
-const el = document.querySelector("h2");
+const titleElement = document.querySelector("h2");
 
 const basilChefs = ["mama", "papa", "baby"];
 const basilTexture = ["greasy", "frozen", "spicy"];
@@ -1076,9 +1080,9 @@ function random(array) {
   return array[randomIndex];
 }
 
-var recipeName = `${random(basilChefs)}'s ${random(basilTexture)} pesto`;
+const recipeName = `${random(basilChefs)}'s ${random(basilTexture)} pesto`;
 
-el.innerHTML = recipeName;
+titleElement.innerText = recipeName;
 ```
 
 and add CSS:
@@ -1101,20 +1105,20 @@ Create a div on the bottom of the html page (but before the script tag).
 </div>
 ```
 
-Create `_modal.scss` and add it to `styles.scss` (e.g. `@import 'imports/modal';`):
+Add styling:
 
 ```css
 .modal {
-  max-width: 600px;
-  min-width: 400px;
+  box-sizing: border-box;
+  max-width: 400px;
   padding: 2rem;
   border-radius: 5px;
   min-height: 200px;
   border: 2px solid var(--orange);
   background: white;
   position: fixed;
-  top: 30%;
-  left: calc(50% - 150px);
+  top: calc(50vh - 100px);
+  left: calc(50vw - 200px);
   /* display: none; */
 }
 ```
@@ -1134,8 +1138,8 @@ Code the `.beta` button to show the window.
 Create a variable for the beta button, attach an event listener to it, and create a function to handle the event.
 
 ```js
-var modal = document.querySelector(".modal");
-var betaButton = document.querySelector(".beta");
+const modal = document.querySelector(".modal");
+const betaButton = document.querySelector(".beta");
 
 function showPopover(event) {
   modal.classList.toggle("open");
@@ -1148,8 +1152,8 @@ betaButton.addEventListener("click", showPopover);
 Refactor to use event delegation:
 
 ```js
-var modal = document.querySelector(".modal");
-// var betaButton = document.querySelector('.beta');
+const modal = document.querySelector(".modal");
+// const betaButton = document.querySelector('.beta');
 
 function showPopover(event) {
   console.log(event.target);
@@ -1164,7 +1168,7 @@ document.addEventListener("click", showPopover);
 
 ## DOM Scripting Methods Used
 
-- Use [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to find the first matching element on a page `var modal = document.querySelector('.modal');`
+- Use [querySelector](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to find the first matching element on a page `const modal = document.querySelector('.modal');`
 - Use [querySelectorAll()](https://developer.mozilla.org/en-US/docs/Web/API/ParentNode/querySelectorAll) to find all matching elements on a page
 - Use [addEventListener('event', function)](https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener), to listen for events on an element. You can find a full list of available events on the [Mozilla Developer Network](https://developer.mozilla.org/en-US/docs/Web/Events)
 - Use [Functions](https://developer.mozilla.org/en-US/docs/Glossary/Function) to store and execute your commands
@@ -1227,7 +1231,7 @@ Style it:
 Extend the showPopover function to include the new element script.
 
 ```js
-var modal = document.querySelector(".modal");
+const modal = document.querySelector(".modal");
 
 function showPopover(event) {
   if (!event.target.matches(".beta, .closer")) return;
@@ -1284,8 +1288,8 @@ Try: changing the opacity and pointer-events properties to 1 and all.
 Edit the script to select the outer div and apply the `open` class to it:
 
 ```js
-var modal = document.querySelector(".modal");
-var modalOuter = document.querySelector(".modal-outer");
+const modal = document.querySelector(".modal");
+const modalOuter = document.querySelector(".modal-outer");
 
 function showPopover(event) {
   if (!event.target.matches(".beta, .closer")) return;
@@ -1302,8 +1306,8 @@ Edit styles for the interior modal:
 
 ```css
 .modal {
-  max-width: 600px;
-  min-width: 400px;
+  box-sizing: border-box;
+  max-width: 400px;
   padding: 2rem;
   border-radius: 5px;
   min-height: 200px;
@@ -1344,8 +1348,8 @@ Note that we are no longer using '`display: none` to hide the modal. The inner m
 Edit the script to allow clicking on the overlay to close the modal.
 
 ```js
-// var modal = document.querySelector('.modal')
-var modalOuter = document.querySelector(".modal-outer");
+// const modal = document.querySelector('.modal')
+const modalOuter = document.querySelector(".modal-outer");
 
 function showPopover(event) {
   if (event.target.matches(".beta")) {
@@ -1364,8 +1368,8 @@ document.addEventListener("click", showPopover);
 We will use the popover for different purposes depending on which element is clicked.
 
 ```js
-var modalOuter = document.querySelector(".modal-outer");
-var modalInner = document.querySelector(".modal");
+const modalOuter = document.querySelector(".modal-outer");
+const modalInner = document.querySelector(".modal");
 
 var betaContent = `
 <h3>Oooops!</h3>
@@ -1388,8 +1392,8 @@ document.addEventListener("click", showPopover);
 Let's use our new popover to display a different message when the user clicks on any of the three nav buttons.
 
 ```js
-var modalOuter = document.querySelector(".modal-outer");
-var modalInner = document.querySelector(".modal");
+const modalOuter = document.querySelector(".modal-outer");
+const modalInner = document.querySelector(".modal");
 
 var betaContent = `
 <h3>Oooops!</h3>
