@@ -27,6 +27,7 @@
     - [Adding Animation to the Modal](#adding-animation-to-the-modal)
   - [A Dynamic Popover](#a-dynamic-popover)
   - [END](#end)
+  - [HTML Dialog Element](#html-dialog-element)
 
 ## Homework
 
@@ -1104,10 +1105,11 @@ Add styling:
   min-height: 200px;
   border: 2px solid var(--orange);
   background: white;
-  position: fixed;
+  /* position: fixed;
   top: calc(50vh - 100px);
-  left: calc(50vw - 200px);
+  left: calc(50vw - 200px); */
   /* display: none; */
+  place-self: center;
 }
 ```
 
@@ -1412,3 +1414,36 @@ document.addEventListener("click", showPopover);
 Note the use of [closest](https://gomakethings.com/checking-event-target-selectors-with-event-bubbling-in-vanilla-javascript/) above. The `closest()` method looks for the closest matching parent to an element that has a selector that you pass in.
 
 ## END
+
+## HTML Dialog Element
+
+```html
+<dialog class="modal">
+  <h3>Hi! I'm a Modal Window (ʘ‿ʘ)╯</h3>
+  <p>Information about the beta program.</p>
+  <form method="dialog">
+    <button value="cancel">Cancel</button>
+    <button value="confirm">Confirm</button>
+  </form>
+</dialog>
+```
+
+```js
+// Get the button and modal let btn =
+document.querySelector("[data-show-modal]");
+let modal = document.querySelector("dialog"); // Show the modal
+btn.addEventListener("click", function () {
+  modal.showModal();
+});
+modal.addEventListener("close", function (event) {
+  if (modal.returnValue !== "confirm") return;
+  console.log("Confirmed!");
+  // Do something...
+});
+```
+
+```css
+dialog::backdrop {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+```
